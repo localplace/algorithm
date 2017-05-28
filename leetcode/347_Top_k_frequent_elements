@@ -1,0 +1,41 @@
+ class Solution {
+   
+    public List<Integer> topKFrequent(int[] nums, int k) {
+          List<Integer> list = new ArrayList<Integer>();
+    Map<Integer,Integer> hashMap = new HashMap<>();
+      TreeMap<Integer,Integer> treeMap = new TreeMap<Integer,Integer>();
+            for(int i=0;i<nums.length;i++) {
+                if(treeMap.containsKey(nums[i])) {
+                    int val = treeMap.get(nums[i]);
+                    treeMap.put(nums[i],++val);
+                }else {
+                    treeMap.put(nums[i],1);
+                }
+            }
+
+        hashMap = sortByValues(treeMap);
+        Set set = hashMap.entrySet();
+        Iterator i = set.iterator();
+        int count  = 0;
+        while(count < k) {
+            Map.Entry me = (Map.Entry)i.next();
+            list.add((Integer) me.getKey());
+            count++;
+        }
+
+        return list;
+    }
+    
+     public static <K, V extends Comparable<V>> Map<K, V> sortByValues(final Map<Integer, Integer> map) {
+        Comparator<K> valueComparator =  new Comparator<K>() {
+            public int compare(K k1, K k2) {
+                int compare = map.get(k2).compareTo(map.get(k1));
+                if (compare == 0) return 1;
+                else return compare;
+            }
+        };
+        Map<K, V> sortedByValues = new TreeMap<K, V>(valueComparator);
+        sortedByValues.putAll((Map<? extends K, ? extends V>) map);
+        return sortedByValues;
+    }
+}

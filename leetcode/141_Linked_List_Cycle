@@ -1,0 +1,19 @@
+public class Solution {
+    HashSet<ListNode> hashSet = new HashSet<ListNode>();
+    public boolean hasCycle(ListNode head) {
+         if(head == null) {
+            return false;
+        }
+        hashSet.add(head);
+        head = head.next;
+        while(head != null) {
+            if(hashSet.contains(head)) {
+                return true;
+            }
+            hashSet.add(head);
+            head = head.next;
+        }
+
+        return false;
+    }
+}

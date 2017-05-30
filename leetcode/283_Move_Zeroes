@@ -1,0 +1,34 @@
+public class Solution {
+    
+    int firstZeroEncounter = -1;
+    
+    public void moveZeroes(int[] nums) {
+          for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] != 0) {
+            //    System.out.println(nums[i]);
+                if (firstZeroEncounter > -1) {
+                    int temp = nums[i];
+                    nums[firstZeroEncounter] = temp;
+                    nums[i] = 0;
+                    if(nums[firstZeroEncounter+1] == 0 ) {
+                        firstZeroEncounter =firstZeroEncounter+1;
+                    }else {
+                        firstZeroEncounter = i;
+                    }
+                }
+            } else {
+                if (firstZeroEncounter == -1) {
+                    firstZeroEncounter = i;
+                }
+            }
+
+        }
+
+        if (nums[nums.length - 1] != 0) {
+            if (firstZeroEncounter != -1) {
+                nums[firstZeroEncounter] = nums[nums.length - 1];
+                nums[nums.length - 1] = 0;
+            }
+        }
+    }
+}

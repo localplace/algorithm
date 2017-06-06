@@ -1,0 +1,40 @@
+public class Solution {
+    
+    public static int getRoman(char c) {
+
+        switch (c) {
+            case 'I':
+                return 1;
+            case 'V':
+                return 5;
+            case 'X':
+                return 10;
+            case 'L':
+                return 50;
+            case 'C':
+                return 100;
+            case 'D':
+                return 500;
+            case 'M':
+                return 1000;
+        }
+        return -1;
+    }
+    
+    public int romanToInt(String s) {
+         int prev = 0;
+        int current = 0;
+        int value=0;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            char g = s.charAt(i);
+            current = getRoman(g);
+            if(current < prev && prev!=0) {
+                value = value - current;
+            }else {
+                value = value+current;
+            }
+            prev = current;
+        }
+        return value;
+    }
+}

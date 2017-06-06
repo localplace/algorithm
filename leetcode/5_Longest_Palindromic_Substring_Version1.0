@@ -1,0 +1,44 @@
+public class Solution {
+
+    //Basic Version added
+    public static String oddPalindrome(String palindrome, String oldPalind, String  newpalind,int start, int end) {
+        if(start < 0 || end > palindrome.length() - 1) {
+            return newpalind.length() > oldPalind.length() ? newpalind : oldPalind;
+        }
+        if(palindrome.charAt(start) == palindrome.charAt(end)) {
+            newpalind = palindrome.substring(start,end+1);
+            return oddPalindrome(palindrome,oldPalind,newpalind,start - 1,end + 1);
+        } else {
+            return newpalind.length() > oldPalind.length() ? newpalind : oldPalind;
+        }
+    }
+
+    public static String evenPalindrome(String palindrome, String oldPalind, String  newpalind,int start, int end) {
+
+
+        if(start < 0 || end > palindrome.length() - 1) {
+            return newpalind.length() > oldPalind.length() ? newpalind : oldPalind;
+        }
+        if(palindrome.charAt(start) == palindrome.charAt(end)) {
+            newpalind = palindrome.substring(start,end+1);
+            return evenPalindrome(palindrome,oldPalind,newpalind,start-1,end + 1);
+        } else {
+            return newpalind.length() > oldPalind.length() ? newpalind : oldPalind;
+        }
+    }
+
+    public String longestPalindrome(String s) {
+        String newpalind = "";
+        String newpalind_even = "";
+        for(int i=0;i<s.length();i++) {
+            newpalind = oddPalindrome(s,newpalind,"",i,i);
+        }
+
+        for(int i=0;i<s.length();i++) {
+            newpalind_even = evenPalindrome(s,newpalind_even,"",i-1,i);
+        }
+
+        return newpalind.length() > newpalind_even.length() ? newpalind : newpalind_even;
+    }
+
+}
